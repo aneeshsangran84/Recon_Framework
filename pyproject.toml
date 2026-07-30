@@ -9,7 +9,7 @@ description = "Enterprise Reconnaissance Framework for authorized assessments"
 readme = "README.md"
 license = {text = "GPL-3.0-or-later"}
 requires-python = ">=3.10"
-authors = [{name = "Security Engineering Team"}]
+authors = [{name = "Recon Framework Team"}]
 keywords = ["reconnaissance", "security", "pentest", "osint"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -18,34 +18,27 @@ classifiers = [
     "Topic :: Security",
 ]
 dependencies = [
-    "click>=8",
-    "rich>=13",
-    "sqlalchemy>=2",
-    "alembic>=1.12",
-    "pydantic>=2",
-    "pydantic-settings>=2",
-    "structlog>=23",
+    "click>=8.0",
+    "rich>=13.0",
+    "sqlalchemy>=2.0",
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "structlog>=23.0",
     "httpx>=0.25",
-    "tenacity>=8",
+    "tenacity>=8.0",
     "dnspython>=2.4",
     "matplotlib>=3.7",
     "jinja2>=3.1",
-    "tomli; python_version < '3.11'",
+    "tomli>=2.0",
+    "tomli-w>=1.0",
 ]
 
 [project.optional-dependencies]
-pdf = ["weasyprint>=60"]
-dev = ["pytest", "pytest-asyncio", "black", "ruff", "mypy", "pre-commit"]
+full = ["python-whois", "geoip2", "weasyprint"]
+dev = ["pytest", "pytest-asyncio", "black", "ruff", "mypy"]
 
 [project.scripts]
 recon = "recon.cli.main:cli"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[tool.black]
-line-length = 100
-target-version = ["py310"]
-
-[tool.ruff]
-line-length = 100
