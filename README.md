@@ -2,48 +2,86 @@
 
 **Enterprise Reconnaissance Framework for Authorized Security Assessments**
 
-Recon Framework is an extensible, modular, and production-ready reconnaissance platform designed for penetration testers, security researchers, and defensive teams. It runs natively on Linux (Kali, Parrot, Ubuntu, Debian, Arch) and provides a professional CLI, plugin-based reconnaissance modules, a unified data model, and powerful multi-format reporting.
+![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Python](https://img.shields.io/badge/python-3.10%2B-green)
+![License](https://img.shields.io/badge/license-GPL--3.0-orange)
+![Platform](https://img.shields.io/badge/platform-Linux-red)
+
+Recon Framework is an extensible, modular reconnaissance platform designed for penetration testers, security researchers, and defensive teams. It runs natively on Kali Linux, Parrot OS, Ubuntu, Debian, Arch Linux, and other common distributions.
 
 ---
 
-## ⚠️ Important
+## ⚠️ Legal Disclaimer
 
-This tool is intended **only** for:
+This tool is intended **ONLY** for:
 - Authorized security assessments
+- Penetration testing with explicit written permission
 - Defensive security research
-- Penetration testing with explicit permission
-- Asset inventory and cybersecurity education
+- Asset inventory on systems you own
+- Cybersecurity education in controlled environments
 
-**Unauthorized use against systems you do not own or have explicit permission to test is illegal and unethical.** The developers assume no liability for misuse.
+**Unauthorized scanning of systems without permission is illegal.** The developers assume no liability for misuse.
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Installation](#installation)
+  - [Method 1: One-Line Install](#method-1-one-line-install)
+  - [Method 2: Using requirements.txt](#method-2-using-requirementstxt)
+  - [Method 3: pip Install](#method-3-pip-install)
+  - [Method 4: Development Install](#method-4-development-install)
+- [Usage](#usage)
+  - [Project Management](#project-management)
+  - [Running Scans](#running-scans)
+  - [Plugin Management](#plugin-management)
+  - [Generating Reports](#generating-reports)
+  - [Configuration](#configuration)
+- [Supported Target Types](#supported-target-types)
+- [Built-in Plugins](#built-in-plugins)
+- [Project Structure](#project-structure)
+- [Report Formats](#report-formats)
+- [Configuration File](#configuration-file)
+- [Developing Custom Plugins](#developing-custom-plugins)
+- [Logging](#logging)
+- [Testing](#testing)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
 ## Features
 
-- **Plugin Architecture** – Every reconnaissance capability is an independent, auto-discovered plugin. Add new modules without touching the core.
-- **Broad Target Support** – IPv4, IPv6, CIDR ranges, domains, URLs, ASNs, and network ranges. Automatic input type detection.
-- **Safe Passive & Active Recon** – DNS enumeration, WHOIS, certificate transparency, SSL/TLS analysis, HTTP headers, technology fingerprinting, reverse DNS, geolocation, CDN/WAF detection, and more.
-- **Normalized Data Model** – All findings stored in SQLite (migratable to PostgreSQL) with deduplication, versioning, and relationship mapping.
-- **Professional Reporting** – Generate PDF, HTML, Markdown, JSON, CSV, and XML reports with customizable templates, charts, executive summaries, and defensive recommendations.
-- **Concurrent Execution** – Async task scheduler with configurable concurrency, retries, timeouts, and real‑time progress via Rich.
-- **Workspaces & Projects** – Organise assessments, resume interrupted scans, compare historical data.
-- **Comprehensive Logging** – Structured logs (text/JSON) with rotation, suitable for SIEM ingestion.
-- **Secure Configuration** – TOML‑based settings with environment variable overrides, secret storage via OS keyring or environment variables.
-- **Cross‑Platform Linux** – Native integration with common penetration testing distributions. Installable via `pip`.
+| Feature | Description |
+|---------|-------------|
+| 🔌 **Plugin Architecture** | Every reconnaissance capability is an independent, auto-discovered plugin |
+| 🎯 **Broad Target Support** | IPv4, IPv6, CIDR ranges, domains, URLs, ASNs |
+| 🔍 **Passive & Active Recon** | DNS, WHOIS, SSL/TLS, HTTP headers, technology fingerprinting, reverse DNS, geolocation, CDN/WAF detection |
+| 🗄️ **Unified Data Model** | All findings stored in SQLite with deduplication and relationship mapping |
+| 📊 **Professional Reports** | HTML, PDF, Markdown, JSON, CSV, XML with charts and tables |
+| ⚡ **Concurrent Execution** | Async task scheduler with progress bars and retry logic |
+| 📁 **Project Workspaces** | Organize assessments, resume interrupted scans |
+| 📝 **Structured Logging** | Text and JSON logs with rotation |
+| ⚙️ **Configurable** | TOML-based settings with environment variable overrides |
 
 ---
 
 ## Quick Start
 
-### Prerequisites
-- Python 3.10 or higher
-- `pip` and `virtualenv` (recommended)
-- External tools: `whois`, `dig` (optional, for some plugins)
-
-### Installation
 ```bash
-git clone https://github.com/your-org/recon-framework.git
-cd recon-framework
-python3 -m venv venv
-source venv/bin/activate
+# Clone and install
+git clone https://github.com/aneeshsangran84/recon_framework.git
+cd recon_framework
+pip install -r requirements.txt
 pip install .
+
+# Verify
+recon --version
+
+# Start using
+recon project create my-assessment
+recon scan --project my-assessment example.com
+recon report generate --project my-assessment --format html --output report.html
