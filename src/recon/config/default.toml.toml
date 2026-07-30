@@ -1,0 +1,19 @@
+[general]
+workspace_dir = "~/.recon/workspaces"
+threads = 10
+timeout = 30
+user_agent = "ReconFramework/0.1"
+
+[logging]
+level = "INFO"
+format = "text"   # or "json"
+file_enabled = true
+file_dir = "~/.recon/logs"
+
+[plugins]
+auto_enable_safe = true
+disabled = []
+
+[report]
+template_dir = ""
+company_name = "Security Assessment Team"

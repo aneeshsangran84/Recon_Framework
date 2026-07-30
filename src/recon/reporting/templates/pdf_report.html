@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project_name }} – Recon Report{% endblock %}
+
+{% block header %}Assessment Report: {{ project_name }}{% endblock %}
+
+{% block content %}
+<section id="executive-summary">
+    <h2>Executive Summary</h2>
+    <p>This report presents the results of the reconnaissance assessment performed on
+    <strong>{{ project_name }}</strong> on {{ generated_at }}. A total of
+    {{ assets_count }} assets were discovered.</p>
+</section>
+
+<section id="methodology">
+    <h2>Methodology</h2>
+    <p>Passive and limited active reconnaissance techniques were used, including DNS enumeration,
+    certificate transparency lookups, WHOIS, HTTP header analysis, and banner grabbing where
+    explicitly authorized. All data was collected in compliance with the Rules of Engagement.</p>
+</section>
+
+<section id="findings">
+    <h2>Technical Findings</h2>
+
+    <h3>Port / Service Distribution</h3>
+    {% if port_chart_svg %}
+    <div class="chart-container">
+        {{ port_chart_svg | safe }}
+    </div>
+    {% else %}
+    <p>No port data available.</p>
+    {% endif %}
+
+    <h3>DNS Record Summary</h3>
+    {% if dns_chart_svg %}
+    <div class="chart-container">
+        {{ dns_chart_svg | safe }}
+    </div>
+    {% endif %}
+
+    <h3>Discovered Assets</h3>
+    <table>
+        <tr><th>Type</th><th>Value</th><th>First Seen</th></tr>
+        {% for asset in assets %}
+        <tr><td>{{ asset.type }}</td><td>{{ asset.value }}</td><td>{{ asset.first_seen }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <h3>DNS Records</h3>
+    <table>
+        <tr><th>Type</th><th>Value</th><th>TTL</th></tr>
+        {% for rec in dns_records %}
+        <tr><td>{{ rec.type }}</td><td>{{ rec.value }}</td><td>{{ rec.ttl }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <h3>Open Ports</h3>
+    <table>
+        <tr><th>Host</th><th>Port</th><th>Service</th></tr>
+        {% for port in ports %}
+        <tr><td>{{ port.host }}</td><td>{{ port.port }}</td><td>{{ port.service }}</td></tr>
+        {% endfor %}
+    </table>
+</section>
+
+<section id="appendix">
+    <h2>Appendix</h2>
+    <p><strong>Tool Version:</strong> Recon Framework {{ generated_at }}</p>
+    <p><strong>Limitations:</strong> This assessment only reflects data available at the time of scanning. No exploitation was attempted.</p>
+</section>
+{% endblock %}

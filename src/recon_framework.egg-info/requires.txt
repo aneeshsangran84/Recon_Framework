@@ -1,0 +1,26 @@
+click>=8
+rich>=13
+sqlalchemy>=2
+alembic>=1.12
+pydantic>=2
+pydantic-settings>=2
+structlog>=23
+httpx>=0.25
+tenacity>=8
+dnspython>=2.4
+matplotlib>=3.7
+jinja2>=3.1
+
+[:python_version < "3.11"]
+tomli
+
+[dev]
+pytest
+pytest-asyncio
+black
+ruff
+mypy
+pre-commit
+
+[pdf]
+weasyprint>=60

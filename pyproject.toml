@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "recon-framework"
+version = "0.1.0"
+description = "Enterprise Reconnaissance Framework for authorized assessments"
+readme = "README.md"
+license = {text = "GPL-3.0-or-later"}
+requires-python = ">=3.10"
+authors = [{name = "Security Engineering Team"}]
+keywords = ["reconnaissance", "security", "pentest", "osint"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Information Technology",
+    "Topic :: Security",
+]
+dependencies = [
+    "click>=8",
+    "rich>=13",
+    "sqlalchemy>=2",
+    "alembic>=1.12",
+    "pydantic>=2",
+    "pydantic-settings>=2",
+    "structlog>=23",
+    "httpx>=0.25",
+    "tenacity>=8",
+    "dnspython>=2.4",
+    "matplotlib>=3.7",
+    "jinja2>=3.1",
+    "tomli; python_version < '3.11'",
+]
+
+[project.optional-dependencies]
+pdf = ["weasyprint>=60"]
+dev = ["pytest", "pytest-asyncio", "black", "ruff", "mypy", "pre-commit"]
+
+[project.scripts]
+recon = "recon.cli.main:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
